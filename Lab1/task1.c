@@ -6,7 +6,7 @@ int main(void)
     double y;
 
     printf("Enter x: ");
-    scanf("%If", &x);
+    scanf("%lf", &x);
 
     if (x <= 0) {
         if (x < -32)
