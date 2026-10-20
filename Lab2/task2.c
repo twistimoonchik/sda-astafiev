@@ -15,7 +15,7 @@ int main() {
   int op_c = 0;
 
   op_c += 1; 
-  if (x == 0) { 
+  if (x == 0.0) { 
     printf("cos(0) = 1.0000000\n");
     return 0;
   }
