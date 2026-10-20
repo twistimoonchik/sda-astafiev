@@ -1,6 +1,5 @@
 #include <math.h>
 #include <stdio.h>
-#include <stdlib.h>
 
 #define PI 3.14159265358979323846
 
@@ -31,37 +30,34 @@ int main() {
   for (int i = -n; i <= n; i++) {
     op_c += 1; 
 
-    int sgn;
-    if (i > 0) {
-      sgn = 1;
-      op_c += 2; 
-    } else if (i < 0) {
-      sgn = -1;
-      op_c += 3; 
-    } else {
-      sgn = 0;
-      op_c += 3; 
-    }
-
-    int m = abs(i); 
-    op_c += 2;      
-
     double sum = 0;
     op_c += 1; 
 
     op_c += 1; 
-    for (int j = 1; j <= m; j++) {
+    if (i > 0) {
       op_c += 1; 
-      sum += PI;
+      for (int j = 1; j <= i; j++) {
+        op_c += 1; 
+        sum += PI;
+        op_c += 2; 
+        op_c += 1; 
+      }
+      op_c += 1; 
+    } else {
       op_c += 2; 
+      for (int j = i + 1; j <= 0; j++) {
+        op_c += 1; 
+        sum -= PI;
+        op_c += 2;
+        op_c += 1;
+      }
       op_c += 1; 
     }
-    op_c += 1; 
 
-    double numerator = two_x - sgn * sum;
-    op_c += 3; 
-    double denominator = x + sgn * sum;
-    op_c += 3; 
+    double numerator = two_x - sum;
+    op_c += 2; 
+    double denominator = x + sum;
+    op_c += 2; 
 
     P *= numerator / denominator;
     op_c += 3; 
