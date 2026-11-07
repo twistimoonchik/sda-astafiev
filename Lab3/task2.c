@@ -77,12 +77,9 @@ int main(void)
             }
             else
             {
-                if (is_full(&st))
-                    printf("Error: stack overflow at position %d.\n", i + 1);
-                else
-                    printf("Error: failed to allocate memory for a new node (position %d).\n", i + 1);
-                ok = 0;
-            }
+               printf("Error: failed to allocate memory for a new node (position %d).\n", i + 1);
+               ok = 0;
+            }  
         }
         else if (s[i] == ')')
         {
