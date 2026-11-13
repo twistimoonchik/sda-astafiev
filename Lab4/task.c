@@ -1,38 +1,27 @@
 #include <stdio.h>
 
-#define M 9   /* кількість рядків    */
-#define N 9   /* кількість стовпчиків */
-#define SHOW_STEPS 0   /* 1 - додатково виводити кількість кроків (для висновків) */
+#define M 9   
+#define N 9   
 
-/*
- * Алгоритм №2 (найлівіший збіг) для стовпчика col,
- * елементи якого впорядковані за незбільшенням.
- * Пошук "на місці": додаткові масиви не використовуються.
- * Повертає номер рядка (з 0) або -1, якщо X немає.
- * steps - кількість виконаних ітерацій циклу (для висновків).
- */
-int binary_search_2(float A[M][N], int col, float x, int *steps)
+int binary_search_2(float A[M][N], int col, float x)
 {
     int L = 0, R = M - 1, i;
 
-    *steps = 0;
     while (L < R)
     {
         i = (L + R) / 2;
-        (*steps)++;
-        if (A[i][col] > x)   /* незбільшення: більші елементи - зверху, X нижче */
+        if (A[i][col] > x)   
             L = i + 1;
-        else                 /* A[i] <= x: A[i] з області пошуку не виключаємо */
+        else                 
             R = i;
     }
-    if (A[R][col] == x)      /* перевірка після циклу */
+    if (A[R][col] == x)      
         return R;
     return -1;
 }
 
 int main()
 {
-    /* Вхідні дані: кожен стовпчик впорядкований за незбільшенням */
     float A[M][N] = {
         {  35.0,   30.0,   32.5,   31.0,   34.0,   33.5,   35.0,   29.5,   32.0},
         {  35.0,   26.5,   27.0,   25.5,   29.0,   28.0,   30.5,   29.5,   26.0},
@@ -45,7 +34,7 @@ int main()
         {   2.5,   -3.0,    1.0,    3.5,   -2.0,    0.0,   12.0,   -1.5,    0.0}
     };
     float x;
-    int i, j, r, steps, any = 0;
+    int i, j, r, any = 0;
 
     printf("Matrix A[%d,%d]:\n", M, N);
     for (i = 0; i < M; i++)
@@ -61,15 +50,12 @@ int main()
 
     for (j = 0; j < N; j++)
     {
-        r = binary_search_2(A, j, x, &steps);
+        r = binary_search_2(A, j, x);
         if (r != -1)
         {
             printf("A[%d][%d] = %.1f;\n", r + 1, j + 1, A[r][j]);
             any = 1;
         }
-#if SHOW_STEPS
-        printf("   column %d: steps = %d\n", j + 1, steps);
-#endif
     }
     if (!any)
         printf("Number %.2f not found.\n", x);
